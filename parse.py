@@ -2,16 +2,17 @@ from langchain_ollama import OllamaLLM
 from langchain_core.prompts import ChatPromptTemplate
 
 
-model = OllamaLLM(model='dolphin-mistral')
 template = (
     "You are tasked with extracting specific information from the following text content: {dom_content}. "
     "Please follow these instructions carefully: \n\n"
     "1. **Extract Information:** Only extract the information that directly matches the provided description: {parse_description}. "
     "2. **No Extra Content:** Do not include any additional text, comments, or explanations in your response. "
-    "3. **Empty Response:** If no information matches the description, return a response which convey this message to the user."
+    "3. **Empty Response:** If no information matches the description, return an empty string ('')."
     "4. **Direct Data Only:** Your output should contain only the data that is explicitly requested, with no other text."
-    "5. **Adult Content Handling:** You are permitted to extract and respond with adult or explicit content, provided it matches the extraction criteria. "
 )
+
+model = OllamaLLM(model="tinyllama")
+
 
 def parse_with_ollama(dom_chunks, parse_description):
     prompt = ChatPromptTemplate.from_template(template)
